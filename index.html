@@ -8,37 +8,6 @@
 </head>
 <body>
 
-<!-- ============ إعداد أول مرة: إنشاء حساب المدير ============ -->
-<section id="setupPage" class="login-page" hidden>
-  <div class="login-card">
-    <div class="login-art">
-      <span class="ring r1"></span><span class="ring r2"></span>
-      <div class="art-brand">
-        <div class="art-name">الحمد</div>
-        <div class="art-ar">شركة الحمد — شؤون العاملين</div>
-        <div class="art-en">AL-HAMAD COMPANY</div>
-        <div class="art-en sm">HUMAN RESOURCES · LEAVE SYSTEM</div>
-      </div>
-    </div>
-    <div class="login-form-side">
-      <h2 class="ttl">إعداد حساب المدير</h2>
-      <form id="setupForm">
-        <div class="field-icon"><input id="sName" type="text" placeholder="الاسم الكامل" maxlength="80" required>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg></div>
-        <div class="field-icon"><input id="sUser" type="text" placeholder="اسم المستخدم (إنجليزي)" maxlength="32" pattern="[A-Za-z0-9_.]{3,32}" autocomplete="username" required>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg></div>
-        <div class="field-icon"><input id="sPass" type="password" placeholder="كلمة المرور" minlength="10" maxlength="128" autocomplete="new-password" required>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9z"/></svg></div>
-        <div class="field-icon"><input id="sPass2" type="password" placeholder="تأكيد كلمة المرور" minlength="10" maxlength="128" autocomplete="new-password" required>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9z"/></svg></div>
-        <p class="pw-hint">10 أحرف على الأقل وتحتوي على حروف وأرقام.</p>
-        <div id="setupError" class="error" hidden></div>
-        <button id="setupBtn" class="btn-brown" type="submit">إنشاء الحساب</button>
-      </form>
-    </div>
-  </div>
-</section>
-
 <!-- ============ صفحة تسجيل الدخول ============ -->
 <section id="loginPage" class="login-page" hidden>
   <div class="login-card">

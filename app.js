@@ -103,29 +103,18 @@ const todayStr = () => new Date().toLocaleDateString("en-CA");
 const requireMgr = () => { const u = me(); if (!u || u.role !== "manager") { toast("ليست لديك صلاحية"); return null; } return u; };
 
 /* ---------- عرض الصفحات الرئيسية ---------- */
-function hideAll() { ["setupPage", "loginPage", "appPage"].forEach(id => $("#" + id).hidden = true); }
+function hideAll() { ["loginPage", "appPage"].forEach(id => $("#" + id).hidden = true); }
 function showLogin(msg) {
   hideAll(); $("#loginPage").hidden = false;
   const err = $("#loginError"); err.hidden = !msg; err.textContent = msg || "";
 }
-function showSetup() { hideAll(); $("#setupPage").hidden = false; }
 
-/* ---------- إعداد أول مرة ---------- */
-$("#setupForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  if (DB.users.length) { boot(); return; }              // الإعداد مرة واحدة فقط
-  const err = $("#setupError"), btn = $("#setupBtn"); err.hidden = true;
-  const name = $("#sName").value.trim(), username = $("#sUser").value.trim(), pw = $("#sPass").value;
-  const fail = m => { err.textContent = m; err.hidden = false; };
-  if (name.length < 2) return fail("أدخل الاسم الكامل");
-  if (!USERNAME_RE.test(username)) return fail("اسم المستخدم: 3–32 حرفاً إنجليزياً أو أرقاماً أو (_ .)");
-  if (pw !== $("#sPass2").value) return fail("تأكيد كلمة المرور غير مطابق");
-  const prob = passwordProblem(pw, username); if (prob) return fail(prob);
-  btn.disabled = true;
-  DB.users = [{ id: uid(), name, username, passHash: await hashPw(pw), role: "manager", branch: "الإدارة العامة",
-    grade: "مدير", balance: 21, active: true, mustChange: false }];
-  btn.disabled = false; $("#setupForm").reset(); toast("تم إنشاء حساب المدير، سجّل الدخول"); showLogin();
-});
+/* ---------- حساب المدير الافتراضي (يُنشأ مرة واحدة، ويُجبر على تغيير كلمة المرور) ---------- */
+async function seedAdmin() {
+  if (DB.users.length) return;
+  DB.users = [{ id: uid(), name: "مدير شؤون العاملين", username: "admin", passHash: await hashPw("admin123"),
+    role: "manager", branch: "الإدارة العامة", grade: "مدير", balance: 21, active: true, mustChange: true }];
+}
 
 /* ---------- تسجيل الدخول / الخروج ---------- */
 $("#loginForm").addEventListener("submit", async e => {
@@ -133,6 +122,7 @@ $("#loginForm").addEventListener("submit", async e => {
   const btn = $("#loginBtn"), err = $("#loginError"); btn.disabled = true; err.hidden = true;
   const showErr = m => { err.textContent = m; err.hidden = false; };
   try {
+    await seedAdmin();
     const username = $("#loginUser").value.trim().toLowerCase().slice(0, 64), pw = $("#loginPass").value.slice(0, 200);
     const fails = getFails(), f = fails[username] || { n: 0, until: 0 };
     if (f.until > Date.now()) return showErr(`تم قفل المحاولات مؤقتاً، حاول بعد ${Math.ceil((f.until - Date.now()) / 60000)} دقيقة`);
@@ -165,7 +155,6 @@ const MENU = {
 let tab = "", sideInit = false;
 
 function boot() {
-  if (!DB.users.length) return showSetup();
   const u = me();
   if (!u) return showLogin();
   hideAll(); $("#appPage").hidden = false;
@@ -406,4 +395,4 @@ function viewPassword(u) {
   };
 }
 
-boot();
+seedAdmin().then(boot);
