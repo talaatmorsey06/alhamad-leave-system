@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شركة الحمد | نظام إجازات شؤون العاملين</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ صفحة تسجيل الدخول ============ -->
+<section id="loginPage" class="login-page">
+  <div class="login-card">
+
+    <!-- لوحة الشعار (يمين) -->
+    <div class="login-art">
+      <span class="ring r1"></span><span class="ring r2"></span>
+      <div class="art-brand">
+        <div class="art-name">الحمد</div>
+        <div class="art-ar">شركة الحمد — شؤون العاملين</div>
+        <div class="art-en">AL-HAMAD COMPANY</div>
+        <div class="art-en sm">HUMAN RESOURCES · LEAVE SYSTEM</div>
+      </div>
+    </div>
+
+    <!-- نموذج الدخول (يسار) -->
+    <div class="login-form-side">
+      <h2 class="ttl">تسجيل الدخول</h2>
+      <form id="loginForm" autocomplete="off">
+        <div class="field-icon">
+          <input id="loginUser" type="text" placeholder="اسم المستخدم" required autofocus>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>
+        </div>
+        <div class="field-icon">
+          <input id="loginPass" type="password" placeholder="كلمة المرور" required>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9z"/></svg>
+        </div>
+        <div id="loginError" class="error" hidden></div>
+        <button class="btn-brown" type="submit">دخول</button>
+      </form>
+      <p class="hint">نسيت كلمة المرور أو تحتاج إلى حساب جديد؟<br>تواصل مع مدير شؤون العاملين.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ التطبيق ============ -->
+<section id="appPage" hidden>
+
+  <header class="topbar">
+    <div class="top-logo">الحمد<small>AL-HAMAD</small></div>
+    <div class="top-icons">
+      <span id="whoami" class="whoami"></span>
+      <button id="homeBtn" class="icon-circle gold" title="الرئيسية" aria-label="الرئيسية">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg>
+      </button>
+      <button id="lockBtn" class="icon-circle blue" title="تغيير كلمة المرور" aria-label="تغيير كلمة المرور">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9z"/></svg>
+      </button>
+      <button id="logoutBtn" class="icon-circle red" title="تسجيل الخروج" aria-label="تسجيل الخروج">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="side-head">
+      <h3>القائمة الرئيسية</h3>
+      <button id="menuBtn" class="hamburger" aria-label="القائمة">☰</button>
+    </div>
+    <nav id="nav"></nav>
+  </aside>
+
+  <main id="view" class="container"></main>
+</section>
+
+<!-- نافذة إعادة تعيين كلمة المرور (للمدير فقط) -->
+<dialog id="resetDialog">
+  <form method="dialog" id="resetForm">
+    <h3>إعادة تعيين كلمة المرور</h3>
+    <p id="resetFor"></p>
+    <label>كلمة المرور الجديدة
+      <input id="resetPass" type="text" minlength="6" required>
+    </label>
+    <button type="button" id="genPass" class="btn ghost">توليد كلمة مرور عشوائية</button>
+    <div class="row end">
+      <button class="btn ghost" type="button" id="resetCancel">إلغاء</button>
+      <button class="btn primary" type="submit">حفظ</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
